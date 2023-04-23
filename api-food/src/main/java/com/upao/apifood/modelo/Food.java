@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 
+
 @Entity
 @Table(name = "menu")
 @Data
@@ -12,13 +13,48 @@ import lombok.ToString;
 @ToString
 
 public class Food {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public String nombre;
+    private String name;
+    private String description;
+    private double price;
 
-    @Column(name = "descripcion",nullable = false)
-    public String descripcion;
 
-    @Column(name = "precio",nullable = false)
-    public String precio;
+    public Food(String name, String description, double price) {
+        setName(name);
+        setDescription(description);
+        setPrice(price);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String nombre) {
+        if (nombre == null || nombre.trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre no puede estar vacio");
+        }
+        name = nombre;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String descripcion) {
+        if (descripcion == null || descripcion.trim().isEmpty()) {
+            throw new IllegalArgumentException("La descripcion no puede estar vacia");
+        }
+        description = descripcion;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double precio) {
+        if (price < 0) {
+            throw new IllegalArgumentException("El precio no puede ser negativo");
+        }
+        price = precio;
+    }
+
 }
